@@ -14,7 +14,7 @@ import pymysql
 
 app = Flask(__name__)
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@127.0.0.1:3305/python-flask-movie"
+# 执行 python modules.py 会自动在mysql中创建表
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://%s:%s@%s/%s" % ('root', '123456', '127.0.0.1:3305', 'python-flask-movie')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
