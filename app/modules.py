@@ -7,19 +7,7 @@
 
 # 数据处理的模型文件
 from datetime import datetime
-
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-import pymysql
-
-app = Flask(__name__)
-
-# 执行 python modules.py 会自动在mysql中创建表
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://%s:%s@%s/%s" % ('root', '123456', '127.0.0.1:3305', 'python-flask-movie')
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-
-db = SQLAlchemy(app)
-
+from app import db
 
 # 会员数据模型
 class User(db.Model):
