@@ -21,4 +21,4 @@ app.register_blueprint(home_blueprint)
 
 # 访问地址需要加上/admin_pre前缀
 # 如：http://127.0.0.1:5000/admin_pre/admin
-app.register_blueprint(admin_blueprint,url_prefix="/admin_pre")
+app.register_blueprint(admin_blueprint, url_prefix="/admin_pre")

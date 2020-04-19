@@ -220,16 +220,20 @@ class Oplog(db.Model):
 if __name__ == "__main__":
     db.create_all()
 
-    # 测试数据的插入
-
+    # 1、测试数据的插入
     role = Role(
-        name="超级管理员",
+        name="超级管理员22",
         auths=""
     )
-    db.session.add(role)
-    db.session.commit()
-    from werkzeug.security import generate_password_hash
 
+    # 1.1、插入数据
+    db.session.add(role)
+    # 1.2、提交事务
+    db.session.commit()
+
+    # 2、再插入一条数据
+    # 加密hash工具
+    from werkzeug.security import generate_password_hash
     admin = Admin(
         name="mtianyan",
         pwd=generate_password_hash("123456"),
