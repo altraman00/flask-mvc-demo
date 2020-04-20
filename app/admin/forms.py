@@ -32,23 +32,30 @@ class AdminService(object):
 
         # 创建新的admin对象
         try:
-            admin = self.createAdmin()
+            admin = self.create_admin()
+
             print(type(admin))
-            print("创建新用户:s%", admin[0].name)
+            print("创建新用户", admin.name)
+            # # 先插入数据，然后等所有逻辑操作做完之后，再db.session.commit()，事务才会起效
+            # a = 1 / 0
+
+            # 提交事务
+            db.session.commit()
+
         except BaseException:
             print("创建异常，事务回滚")
             db.session.rollback()
-
+            return '创建异常，事务已经回滚'
         return admin.name
 
-    def createAdmin(self):
+    # 插入数据
+    def create_admin(self):
         from werkzeug.security import generate_password_hash
         admin = Admin(
-            name="mtianyan11",
+            name="mtianyan14",
             pwd=generate_password_hash("123456"),
             is_super=0,
             role_id=2
         )
         db.session.add(admin)
-        db.session.commit()
         return admin
