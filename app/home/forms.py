@@ -5,7 +5,6 @@
 # @File  : forms.py
 
 # coding:utf8
-from flask import logging, Flask
 from app import app
 
 a = [1, 2, 3]

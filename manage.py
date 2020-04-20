@@ -4,13 +4,10 @@
 # @Author: xk
 # @File  : manage.py
 
-from flask_bootstrap import Bootstrap
 from flask_script import Manager, Server
 
 from app import app
 from app.config.log_config import setup_log
-
-Bootstrap(app)
 
 manage = Manager(app)
 manage.add_command("runserver", Server(use_debugger=True))
