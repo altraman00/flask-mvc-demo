@@ -56,7 +56,7 @@ class AdminService(object):
     def create_admin(self):
         from werkzeug.security import generate_password_hash
         admin = Admin(
-            name="mtianyan15",
+            name="mtianyan16",
             pwd=generate_password_hash("123456"),
             is_super=0,
             role_id=2
