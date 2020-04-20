@@ -7,20 +7,20 @@
 # coding:utf8
 from contextlib import ContextDecorator
 
-from flask import session
+from flask import Flask
 from flask_restful.representations import json
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 
-from app import db
+from app import db,app
 from app.modules import Admin
-
 
 class AdminService(object):
     """查询admin用户"""
 
     def queryAdmin(self, id):
         # 数据库链接方式一，使用db.session
+        app.logger.debug('查询admin表')
         admin = db.session.query(Admin).filter_by(id=id).first()
 
         # 数据库连接方式二，使用model对象Admin直接进行查询操作
@@ -28,7 +28,8 @@ class AdminService(object):
         if admin is None:
             resStr = "暂时没有admin用户"
             # return resStr
-            print(resStr)
+            # print(resStr)
+            app.logger.debug(resStr)
 
         # 创建新的admin对象
         # try ... except 是简单的事务捕捉，嵌套事务需要在try里面添加with session.begin_nested()
@@ -38,8 +39,8 @@ class AdminService(object):
 
             print(type(admin))
             print("创建新用户", admin.name)
-            # # 先插入数据，然后等所有逻辑操作做完之后，再db.session.commit()，事务才会起效
-            a = 1 / 0
+            # # # 先插入数据，然后等所有逻辑操作做完之后，再db.session.commit()，事务才会起效
+            # a = 1 / 0
 
         except BaseException as e:
             print("创建异常，事务回滚", e)
