@@ -5,6 +5,8 @@
 # @File  : forms.py
 
 # coding:utf8
+from contextlib import ContextDecorator
+
 from flask import session
 from flask_restful.representations import json
 from flask_wtf import FlaskForm
@@ -28,16 +30,25 @@ class AdminService(object):
             # return resStr
             print(resStr)
 
+        # 创建新的admin对象
+        try:
+            admin = self.createAdmin()
+            print(type(admin))
+            print("创建新用户:s%", admin[0].name)
+        except BaseException:
+            print("创建异常，事务回滚")
+            db.session.rollback()
+
+        return admin.name
+
+    def createAdmin(self):
         from werkzeug.security import generate_password_hash
         admin = Admin(
-            name="mtianyan6",
+            name="mtianyan11",
             pwd=generate_password_hash("123456"),
             is_super=0,
             role_id=2
         )
         db.session.add(admin)
         db.session.commit()
-        print(type(admin))
-        print("创建新用户:s%", admin.name)
-
-        return admin.name
+        return admin
